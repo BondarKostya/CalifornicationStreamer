@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>184</x>
+      <y>0</y>
+      <w>216</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>class CSServer
+--
+Public :
++ sharedInstanse: CSServer
+- serverState: ServerState
+- launchServer(port:Int)
+- stopServer()
+- pauseServer()
+--
+Private :
++ connectPort: Int
+- CSServer()
+- sessionManager : CSSessionManager
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>128</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>enum ServerState
+--
+serverStoped - 0
+serverRun - 1
+serverPause - 3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>120</x>
+      <y>0</y>
+      <w>80</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;70.0;20.0;70.0;20.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>0</y>
+      <w>352</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>class CSSessionManager
+--
+Public:
++ sharedInstanse: CSSessionManager
+Active:
+- addClientToSession(sessionId:String,client:Client,parameters:String)
+- removeClientFromSession(sessionId:String,client:Client)
+- createSession(sessionId:String,client:Client,parameters:String)
+- removeSession(sessionId:String)
+Paused:
+- pauseAllSessions()
+Stoped:
+- stopAllImageTransmiting()
+- stopAllTextTransmiting()
+- stopAllSessions()
+Resume:
+- resumeAllSessions()
+- resumeAllImageTransmiting()
+- resumeAllTextTransmiting()
+--
+Private: 
+- sessions:Session[0..inf]
+- clients:Client[0..inf]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>0</y>
+      <w>72</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;40.0;180.0;40.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>256</y>
+      <w>224</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>abstract class CSSession
+--
+Public:
+- sessionId:String
+--
+- Session(sessionId:String,creator:User)
+- stopTransmitingImage()
+- stopTransmitingText()
+- resumeTrasmitingText()
+- resumeTrasmitingImage()
+- pause()
+- resume()
+- getSessionClients() -&gt; Clients[1..inf]
+- removeAllUsers()
+- addClient(newClient:Client)
+- removeClient(clientId)
+- blockClient(clientId)
+--
+Private:
+- textTransmitingState:TransmitingState
+- imageTransmitingState:TransmittingState
+- clients:Client[0..inf]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>256</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>8</x>
+      <y>560</y>
+      <w>136</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>class CSStandartSession
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>432</x>
+      <y>560</y>
+      <w>136</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>class CSPrivateSession
+--
+- password:String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>512</y>
+      <w>56</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>136</x>
+      <y>512</y>
+      <w>56</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>264</y>
+      <w>216</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>abstract class CSClient
+--
+Public:
+- sessionManager:CSSessionManager
+- clientSocket:Socket
+- clientId:String
+- currentSession:Session
+- clientImage:String
+--
+Private:
+- getImage(data:String)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>264</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>560</y>
+      <w>136</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>class StandartClient
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>808</x>
+      <y>496</y>
+      <w>56</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+</diagram>
