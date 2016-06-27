@@ -14,7 +14,7 @@
 Public :
 + sharedInstanse: CSServer
 - serverState: ServerState
-- launchServer(port:Int)
+- launchServer()
 - stopServer()
 - pauseServer()
 --
