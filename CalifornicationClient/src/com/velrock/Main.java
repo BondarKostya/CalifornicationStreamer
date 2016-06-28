@@ -1,7 +1,6 @@
 package com.velrock;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -13,14 +12,18 @@ public class Main {
             InetAddress adr = InetAddress.getByName(null);
             Socket testSocket = new Socket(adr,9656);
             OutputStream output = testSocket.getOutputStream();
+            BufferedReader reader =  new BufferedReader(new InputStreamReader(testSocket.getInputStream()));
+            //System.out.println(reader.readLine());
+            //System.out.println(reader.readLine());
             long time = System.currentTimeMillis();
-            output.write("jdevnotes multithreaded server runs\n".getBytes());
-            Thread.currentThread().sleep(50000);
+            BufferedReader buffer=new BufferedReader(new InputStreamReader(System.in));
+            while(true) {
+                String line=buffer.readLine();
+                output.write((line + "\n").getBytes());
+            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

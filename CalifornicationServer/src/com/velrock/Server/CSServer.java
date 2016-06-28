@@ -10,7 +10,7 @@ import java.net.Socket;
 /**
  * Created by brigh on 26.06.2016.
  */
-public class CSServer implements Runnable {
+public class CSServer extends Thread {
     public static final int serverPort = 9656;
     //singleton instance
     public static CSServer sharedInstance  = new CSServer();
@@ -24,10 +24,11 @@ public class CSServer implements Runnable {
 
     }
 
+
     //work with state server
     public void launchServer() {
         serverState = CSServerState.serverRun;
-        this.run();
+        this.start();
     }
     public void pauseServer() {
         serverState = CSServerState.serverPause;
