@@ -10,12 +10,10 @@ import java.io.*;
 public class CSClientReader extends Thread {
     BufferedReader reader;
     Boolean isRun;
-    CSClient client;
 
-    public CSClientReader(InputStream inputStream,CSClient client) {
+    public CSClientReader(InputStream inputStream) {
         this.reader =  new BufferedReader(new InputStreamReader(inputStream));
         this.isRun = false;
-        this.client = client;
     }
 
     @Override
@@ -30,12 +28,7 @@ public class CSClientReader extends Thread {
                 try {
                     out = reader.readLine();
                 } catch (IOException e) {
-                    try {
-                        client.clientSocket.close();
-                        return;
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
                 System.out.println(out);
             }

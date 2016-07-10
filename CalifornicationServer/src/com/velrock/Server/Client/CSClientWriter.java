@@ -9,6 +9,8 @@ public class CSClientWriter extends Thread {
     PrintWriter writer;
     Boolean isRun;
     CSClient client;
+    Boolean haveDateForTransmitt;
+    String dataForTransmitt;
 
     public CSClientWriter(OutputStream outputStream,CSClient client) {
         writer = new PrintWriter(outputStream, true);
@@ -24,21 +26,13 @@ public class CSClientWriter extends Thread {
             if(this.isRun == false) {
                 continue;
             }else {
-//                BufferedReader buffer=new BufferedReader(new InputStreamReader(System.in));
-//                try {
-//                    String line=buffer.readLine();
-//                    this.writer.print(line + "\n");
-//                } catch (IOException e) {
-//                    try {
-//                        client.clientSocket.close();
-//                        return;
-//                    } catch (IOException e1) {
-//                        e1.printStackTrace();
-//                    }
-//                }
-//                this.writer.print("ResponseOne\n");
-//                this.writer.flush();
-                //System.out.println("Write");
+                if(haveDateForTransmitt && dataForTransmitt.length() > 0) {
+                    this.writer.print(dataForTransmitt + "\n");
+                    this.writer.print("ResponseOne\n");
+                    this.writer.flush();
+                    System.out.println("Write");
+                }
+
             }
         }
     }
